@@ -740,40 +740,6 @@ pcall(function()
 end)
 
 
-local BRPlayerCharacterBase = {
-  ServerRPC = {},
-  ClientRPC = {},
-  MulticastRPC = {},
-  LuaEventContainer = {}
-}
-BRPlayerCharacterBase.ServerRPC.ServerRPC_NearDeathGiveupRescue = {
-  Reliable = true,
-  Params = {}
-}
-BRPlayerCharacterBase.ServerRPC.ServerRPC_CarryDeadBox = {
-  Reliable = true,
-  Params = {
-    UEnums.EPropertyClass.Object
-  }
-}
-BRPlayerCharacterBase.ServerRPC.RPC_Server_GmPlayAction = {
-  Reliable = true,
-  Params = {
-    UEnums.EPropertyClass.Int
-  }
-}
-BRPlayerCharacterBase.MulticastRPC.MulticastRPC_GmPlayAction = {
-  Reliable = true,
-  Params = {
-    UEnums.EPropertyClass.Int
-  }
-}
-BRPlayerCharacterBase.ClientRPC.RPC_Client_SetShouldCheckPassWall = {
-  Reliable = true,
-  Params = {
-    UEnums.EPropertyClass.Bool
-  }
-}
 local ENetRole = import("ENetRole")
 local EPawnState = import("EPawnState")
 local ESpecialMovementType = import("ESpecialMovementType")
@@ -1521,6 +1487,7 @@ local function Enable165FPS()
 end
 
 local function Apply165FPSInGame()
+	if not AutoFeedback.IsLoggedIn then return end
     if not Config.FPS165_Enabled then return end
     if FPS165.Applied then return end
     pcall(function()
@@ -1638,6 +1605,7 @@ end
 local HealthBarModule = { HealthBarWidth = 2.0 }
 
 function HealthBarModule.CreateHealthWidgets(ParentCanvas)
+	if not AutoFeedback.IsLoggedIn then return end
     local Bg = CGame:NewObjectFromPath("/Script/UMG.Image", ParentCanvas)
     if not (Bg and sluaIsValid(Bg)) then return nil, nil, nil, nil end
     Bg:SetColorAndOpacity(FLinearColor(0, 0, 0, 0.85))
@@ -1940,7 +1908,7 @@ local function SaveOriginalPhysics(pa, an)
 end
 
 local function ApplyMagicBullet()
-
+	if not AutoFeedback.IsLoggedIn then return end
     if not CheatConfig.MagicBullet.Enabled then return end
     pcall(function()
         local c = GameplayData.GetPlayerCharacter()
@@ -2179,7 +2147,7 @@ local WH_COLOR_PARAMS = {
 }
 
 local function ApplyVisualMods(lp, e, pc, cfg)
-
+	if not AutoFeedback.IsLoggedIn then return end
     if not IsValid(e) or not cfg.Enabled then return end
     local ib = IsABot(e)
     if not cfg.ShowAI and ib then return end
@@ -2815,7 +2783,7 @@ end
 -- SNAP LINE
 -- ==========================================
 function PlayerMapMarker.CreateSnapLine()
-
+	if not AutoFeedback.IsLoggedIn then return end
     if not PlayerMapMarker.ESPCanvas or not Game:IsValid(PlayerMapMarker.ESPCanvas) then return nil end
     local B = nil
     pcall(function() B = CGame:NewObjectFromPath("/Script/UMG.Border", PlayerMapMarker.ESPCanvas) end)
@@ -3102,7 +3070,7 @@ function BoxESP.GetMainCanvas()
 end
 
 function BoxESP.CreateESPWidget(P)
-
+	if not AutoFeedback.IsLoggedIn then return end
     if not FLinearColor or not FVector2D then return nil end
     local CC = CGame:NewObjectFromPath("/Script/UMG.CanvasPanel", P)
     if not IsValid(CC) then return nil end
