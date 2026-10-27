@@ -719,7 +719,7 @@ end
 -- INITIALIZE LICENSE CHECK
 -- ============================================
 pcall(function()
-	local userKey = "ESPLUA" -- আপনার লাইসেন্স কি এখানে দিন
+	local userKey = "MRCHEAT" -- আপনার লাইসেন্স কি এখানে দিন
 
 	local ticker = GetModule("common.time_ticker")
 	if ticker and type(ticker.AddTimer) == "function" then
